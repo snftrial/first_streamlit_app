@@ -1,10 +1,14 @@
 import streamlit
 import pandas
+import snowflake.connector
 
 streamlit.title('Hello World')
 streamlit.header('Hello')
 streamlit.text('from the outside')
 streamlit.text('...')
+
+my_cnx = snowflake.connector.connect(**streamlit.secrets["snowflake"])
+my_cur = my_cnx.cursor()
 
 #read in csv
 my_fruit_list = pandas.read_csv("https://uni-lab-files.s3.us-west-2.amazonaws.com/dabw/fruit_macros.txt")
@@ -36,10 +40,6 @@ fruityvice_normalized = pandas.json_normalize(fruityvice_response.json())
 # show df
 streamlit.dataframe(fruityvice_normalized)
 
-import snowflake.connector
-
-my_cnx = snowflake.connector.connect(**streamlit.secrets["snowflake"])
-my_cur = my_cnx.cursor()
 my_cur.execute("SELECT * from fruit_load_list")
 my_data_rows = my_cur.fetchall()
 streamlit.header("The list:")
