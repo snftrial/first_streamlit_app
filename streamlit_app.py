@@ -41,5 +41,5 @@ streamlit.header("The list:")
 streamlit.dataframe(my_data_rows)
 
 streamlit.text("What fruit would you like to add ?")
-add_my_fruit=streamlit.text_input('jackfruit')
+add_my_fruit=streamlit.text_input('')
 streamlit.write('Thanks for adding',add_my_fruit)
