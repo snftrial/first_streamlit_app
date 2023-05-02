@@ -18,7 +18,7 @@ my_fruit_list= my_fruit_list.set_index('Fruit');
 
 fruits_selected=streamlit.multiselect("Pick some fruits:",list(my_fruit_list.index),['Avocado']);
 fruits_to_show=my_fruit_list.loc[fruits_selected];
-my_cur.execute("insert into fruit_load_list values('from streamlit')");
+#my_cur.execute("insert into fruit_load_list values('from streamlit')");
 
 
 #display df
@@ -43,7 +43,7 @@ try:
 except URLError as e:
   streamlit.error()
 
-  my_cur.execute("insert into fruit_load_list values('from streamlit')");
+  #my_cur.execute("insert into fruit_load_list values('from streamlit')");
 
 
 # parse json
@@ -60,6 +60,7 @@ if streamlit.button('Get Fruit Load List'):
     my_cnx = snowflake.connector.connect(**streamlit.secrets["snowflake"])
     my_data_rows = get_fruit_load_list()
     streamlit.dataframe(my_data_rows)
+    
 streamlit.stop()
 
 add_my_fruit=streamlit.text_input("What fruit would you like to add ?")
