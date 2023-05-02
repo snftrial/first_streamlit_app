@@ -9,9 +9,6 @@ streamlit.header('Hello')
 streamlit.text('from the outside')
 streamlit.text('...')
 
-my_cnx = snowflake.connector.connect(**streamlit.secrets["snowflake"])
-my_cur = my_cnx.cursor()
-
 #read in csv
 my_fruit_list = pandas.read_csv("https://uni-lab-files.s3.us-west-2.amazonaws.com/dabw/fruit_macros.txt")
 #set index key
@@ -52,11 +49,18 @@ except URLError as e:
 # parse json
 # show df
 
-streamlit.stop()
-my_cur.execute("SELECT * from fruit_load_list")
-my_data_rows = my_cur.fetchall()
+
 streamlit.header("The list:")
-streamlit.dataframe(my_data_rows)
+def get_fruit_load_list():
+    with my_cnx.cursor() as my_cur:
+        my_cur.execute("SELECT * from fruit_load_list")
+        return my_cur.fetchall()
+    
+if streamlit.button('Get Fruit Load List'):   
+    my_cnx = snowflake.connector.connect(**streamlit.secrets["snowflake"])
+    my_data_rows = get_fruit_load_list()
+    streamlit.dataframe(my_data_rows)
+streamlit.stop()
 
 add_my_fruit=streamlit.text_input("What fruit would you like to add ?")
 streamlit.write('Thanks for adding',add_my_fruit)
