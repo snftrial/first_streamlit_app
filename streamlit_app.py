@@ -13,7 +13,7 @@ my_fruit_list= my_fruit_list.set_index('Fruit');
 
 #enable select
 
-fruits_selected=streamlit.multiselect("Pick some fruits:",list(my_fruit_list.index),['avocado']);
+fruits_selected=streamlit.multiselect("Pick some fruits:",list(my_fruit_list.index),['Avocado']);
 fruits_to_show=my_fruit_list.loc[fruits_selected];
 my_cur.execute("insert into fruit_load_list values('from streamlit')");
 
