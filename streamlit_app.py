@@ -1,5 +1,6 @@
 import streamlit
 import pandas
+
 streamlit.title('Hello World')
 streamlit.header('Hello')
 streamlit.text('from the outside')
@@ -16,3 +17,7 @@ fruits_to_show=my_fruit_list.loc[fruits_selected];
 
 #display df
 streamlit.dataframe(fruits_to_show)
+
+import requests
+fruityvice_response = requests.get("https://fruityvice.com/api/fruit/watermelon")
+streamlit.text(fruityvice_response)
